@@ -1,0 +1,29 @@
+{
+  "Name": "item",
+  "Description": "Self explanatory.",
+  "Sprite": "sprites/item",
+  "UseModelRendering": false,
+  "Properties": [
+    {
+      "Name": "name",
+      "Type": "String",
+      "SmartEditName": "Name",
+      "DefaultValue": "Level 1 Key Card",
+      "HelpText": "The name that appears in-game."
+    },
+	{
+      "Name": "tempname",
+      "Type": "String",
+      "SmartEditName": "Temporary Name",
+      "DefaultValue": "key1",
+      "HelpText": "The name that things such as the console use internally."
+    },
+	{
+      "Name": "angle",
+      "Type": "Float",
+      "SmartEditName": "Angle",
+      "DefaultValue": "0",
+      "HelpText": "Yaw of the item."
+    }
+  ]
+}

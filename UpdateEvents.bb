@@ -5207,6 +5207,12 @@ Function UpdateEvents()
 					EndIf
 				EndIf
 				;[End Block]
+			Case "room018"
+				;[Block]
+				If PlayerRoom = e\room Then
+					e\EventState2 = UpdateElevators(e\EventState2, e\room\RoomDoors[0], e\room\RoomDoors[1],e\room\Objects[0],e\room\Objects[1], e)
+				EndIf
+				;[End Block]
 			Case "room035"
 				;[Block]
 				If PlayerRoom = e\room Then
@@ -8688,7 +8694,19 @@ Function UpdateEvents()
 				If e\EventState = 0
 					e\EventState = Rand(1,3)
 				Else
-					e\room\RoomDoors[0]\KeyCard = e\EventState
+					e\room\RoomDoors[1]\KeyCard = e\EventState
+				EndIf
+				
+				If e\EventState2 = 0
+					e\EventState2 = Rand(2,4)
+				Else
+					e\room\RoomDoors[0]\KeyCard = e\EventState2
+				EndIf
+				
+				If e\EventState3 = 0
+					e\EventState3 = Rand(3,5)
+				Else
+					e\room\RoomDoors[2]\KeyCard = e\EventState3
 				EndIf
 				;[End Block]
 			Case "room2shaft"

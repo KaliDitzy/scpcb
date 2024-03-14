@@ -19,6 +19,13 @@ This game is licensed under Creative Commons Attribution-ShareAlike 3.0 License.
 http://creativecommons.org/licenses/by-sa/3.0/
 
 
+The font used in our custom sprites for CBRE-EX are from http://www.onlinewebfonts.com, and are licensed under the Creative Commons Attribution-ShareAlike 4.0 License.
+
+The label for the medical bay uses "Rod of Asclepius (fixed width).svg" by Dennis Moskowitz, and is licensed under the Creative Commons Attribution-ShareAlike 4.0 License.
+
+http://creativecommons.org/licenses/by-sa/4.0/
+
+
 The source code of the game is available on GitHub: https://github.com/Regalis11/scpcb
 
 

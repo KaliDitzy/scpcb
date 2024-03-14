@@ -1,4 +1,17 @@
-﻿v1.3.11
+﻿v1.3.12
+Save files from version 1.3.11 are compatible with this version.
+- CBRE-EX support added: easily create your own rooms with new entities!
+
+- New rooms (room2b, room2b_2, room018, lockroom3), as well as updated rooms (room079, room1archive, medibay).
+- Updated containment room labels, including removing obsolete warning labels, updating images, and incorporating the Anomaly Classification System.
+- Increased SCP-173's speed from 38.0 to 45.0.
+- Map size increased from 18 to 28.
+- New menu effects.
+- Remote updates have been disabled.
+
+----------------------------------------------------------------------------------
+
+v1.3.11
 Save files from version 1.3.10 are compatible with this version.
 
 - Added a mouse smoothing option.

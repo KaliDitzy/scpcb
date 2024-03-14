@@ -103,12 +103,67 @@ Function LoadWorld(file$, rt.RoomTemplates)
 				c=c-1
 				
 			;===============================================================================
+			;Logical Entities
+			;===============================================================================
+			Case "logic_center"
+			
+				targetname$ = KeyValue(node,"targetname","")
+				
+				AddLogicCenter(rt, targetname)
+				
+			Case "logic_item_spawner"
+			
+				x# = EntityX(node)*RoomScale
+				y# = EntityY(node)*RoomScale
+				z# = EntityZ(node)*RoomScale
+			
+				targetname$ = KeyValue(node,"targetname","")
+				
+				noneWeight% = Int(KeyValue(node,"noneWeight","1"))
+				
+				is.WeightedItemSpawner = AddWeightedItemSpawner(x,y,z, rt, targetname)
+				is\noneWeight = noneWeight
+				is\item1 = AddWeightedItem(Int(KeyValue(node,"oneWeight","0")), KeyValue(node,"oneName","Playing Card"), KeyValue(node,"oneTempName","misc"))
+				is\item2 = AddWeightedItem(Int(KeyValue(node,"twoWeight","0")), KeyValue(node,"twoName","Playing Card"), KeyValue(node,"twoTempName","misc"))
+				is\item3 = AddWeightedItem(Int(KeyValue(node,"threeWeight","0")), KeyValue(node,"threeName","Playing Card"), KeyValue(node,"threeTempName","misc"))
+				is\item4 = AddWeightedItem(Int(KeyValue(node,"fourWeight","0")), KeyValue(node,"fourName","Playing Card"), KeyValue(node,"fourTempName","misc"))
+				is\item5 = AddWeightedItem(Int(KeyValue(node,"fiveWeight","0")), KeyValue(node,"fiveName","Playing Card"), KeyValue(node,"fiveTempName","misc"))
+				
+			;===============================================================================
 			;Solid Entities
 			;===============================================================================
 			Case "item"
-				;name$ = KeyValue(node,"name","")
-				;tempname$ = KeyValue(node,"tempname","")				
-				;CreateItem(name,tempname,EntityX(node)*RoomScale,EntityY(node)*RoomScale,EntityZ(node)*RoomScale)
+			
+				x# = EntityX(node)*RoomScale
+				y# = EntityY(node)*RoomScale
+				z# = EntityZ(node)*RoomScale
+				
+				name$ = KeyValue(node,"name","")
+				tempname$ = KeyValue(node,"tempname","")	
+				
+				angle# = Float(KeyValue(node,"angle","0"))
+
+				AddTempItem(rt, x,y,z,angle, name,tempname)
+				
+			Case "door"
+			
+				x# = EntityX(node)*RoomScale
+				y# = EntityY(node)*RoomScale
+				z# = EntityZ(node)*RoomScale
+				
+				angle# = Float(KeyValue(node,"angle","0"))
+				big% = Int(KeyValue(node,"type","0"))
+				
+				open% = Int(KeyValue(node,"open","0"))
+				locked% = Int(KeyValue(node,"locked","0"))
+				
+				level% = Int(KeyValue(node,"level","0"))
+				code$ = KeyValue(node,"code","")
+				
+				id% = Int(KeyValue(node,"did","-1"))
+				
+				AddTempDoor(rt, x,y,z, angle, open,locked, big, level, code, id)
+			
 			Case "screen"
 				
 				x# = EntityX(node)*RoomScale
@@ -575,6 +630,67 @@ Function LoadRMesh(file$,rt.RoomTemplates)
 	For i%=1 To count
 		temp1s=ReadString(f)
 		Select temp1s
+			;===============================================================================
+			;Logical Entities
+			;===============================================================================
+			Case "logic_center"
+			
+				targetname$ = ReadString(f)
+				
+				AddLogicCenter(rt, targetname)
+			
+			Case "logic_item_spawner"
+			
+				temp1 = ReadFloat(f)*RoomScale
+				temp2 = ReadFloat(f)*RoomScale
+				temp3 = ReadFloat(f)*RoomScale
+			
+				targetname$ = ReadString(f)
+				
+				noneWeight% = ReadInt(f)
+				
+				is.WeightedItemSpawner = AddWeightedItemSpawner(temp1,temp2,temp3, rt, targetname)
+				is\noneWeight = noneWeight
+				is\item1 = AddWeightedItem(ReadInt(f), ReadString(f), ReadString(f))
+				is\item2 = AddWeightedItem(ReadInt(f), ReadString(f), ReadString(f))
+				is\item3 = AddWeightedItem(ReadInt(f), ReadString(f), ReadString(f))
+				is\item4 = AddWeightedItem(ReadInt(f), ReadString(f), ReadString(f))
+				is\item5 = AddWeightedItem(ReadInt(f), ReadString(f), ReadString(f))
+				
+			;===============================================================================
+			;Other Entities
+			;===============================================================================
+			Case "item"
+			
+				temp1 = ReadFloat(f)*RoomScale
+				temp2 = ReadFloat(f)*RoomScale
+				temp3 = ReadFloat(f)*RoomScale
+				
+				name$ = ReadString(f)
+				tempname$ = ReadString(f)
+				
+				angle# = ReadFloat(f)
+
+				AddTempItem(rt, temp1,temp2,temp3,angle, name,tempname)
+				
+			Case "door"
+			
+				temp1 = ReadFloat(f)*RoomScale
+				temp2 = ReadFloat(f)*RoomScale
+				temp3 = ReadFloat(f)*RoomScale
+				
+				angle# = ReadFloat(f)
+				big% = ReadInt(f)
+				open% = ReadInt(f)
+				locked% = ReadInt(f)
+				level% = ReadInt(f)
+				
+				code$ = ReadString(f)
+				
+				id% = ReadInt(f)
+				
+				AddTempDoor(rt, temp1,temp2,temp3, angle, open,locked, big, level, code, id)
+				
 			Case "screen"
 				
 				temp1=ReadFloat(f)*RoomScale
@@ -1790,7 +1906,7 @@ Type Rooms
 	
 	Field Objects%[MaxRoomObjects]
 	Field Levers%[11]
-	Field RoomDoors.Doors[7]
+	Field RoomDoors.Doors[16]
 	Field NPC.NPCs[12]
 	Field grid.Grids
 	
@@ -2105,7 +2221,16 @@ Function FillRoom(r.Rooms)
 	Local it.Items, i%
 	Local xtemp%, ytemp%, ztemp%
 	
-	Local t1;, Bump	
+	Local t1;, Bump
+	
+	For td.TempDoors = Each TempDoors
+		If td\roomtemplate = r\RoomTemplate Then
+			If td\id<>-1 Then
+				r\RoomDoors[td\id] = CreateDoor(r\zone, r\x+td\x, r\y+td\y, r\z+td\z, td\angle, r, td\open, td\big, td\level, td\code)
+				r\RoomDoors[td\id]\locked = td\locked
+			EndIf
+		EndIf
+	Next
 	
 	Select r\RoomTemplate\Name
 		Case "room860"
@@ -3623,6 +3748,34 @@ Function FillRoom(r.Rooms)
 			ScaleSprite(de\obj, de\Size,de\Size)
 			EntityParent de\obj, r\obj
 			;[End Block]
+		Case "room018"
+			;[Block]
+			r\Objects[0] = CreatePivot(r\obj)
+			PositionEntity(r\Objects[0], r\x - 720.0 * RoomScale, 0, r\z, True)
+			
+			r\RoomDoors[0] = CreateDoor(r\zone, r\x - 416.0 * RoomScale, 0, r\z, 270, r, True, 3)
+			r\RoomDoors[0]\AutoClose = False : r\RoomDoors[0]\open = True
+			;PositionEntity(r\RoomDoors[0]\buttons[1], r\x - 384.0 * RoomScale, 0.7, r\z + 144.0 * RoomScale, True)
+			;PositionEntity(r\RoomDoors[0]\buttons[0], r\x - 448.0 * RoomScale, 0.7, r\z - 144.0 * RoomScale, True)
+			
+			r\Objects[1] = CreatePivot(r\obj)
+			PositionEntity(r\Objects[1], r\x - 720.0 * RoomScale, -4224.0 * RoomScale, r\z, True)
+		
+			r\RoomDoors[1] = CreateDoor(r\zone, r\x - 416.0 * RoomScale, -4224.0 * RoomScale, r\z, 270, r, False, 3)
+			r\RoomDoors[1]\AutoClose = False : r\RoomDoors[1]\open = False
+			;PositionEntity(r\RoomDoors[1]\buttons[1], r\x - 384.0 * RoomScale, EntityY(r\RoomDoors[1]\buttons[1],True), r\z + 144.0 * RoomScale, True)
+			;PositionEntity(r\RoomDoors[1]\buttons[0], r\x - 448.0 * RoomScale, EntityY(r\RoomDoors[1]\buttons[0],True), r\z - 144.0 * RoomScale, True)
+			
+			r\RoomDoors[2] = CreateDoor(r\zone, r\x - 192.0 * RoomScale, -4224.0 * RoomScale, r\z + 544 * RoomScale, 0, r, False, False, 2)
+			PositionEntity(r\RoomDoors[2]\buttons[0], r\x - 64.0 * RoomScale, EntityY(r\RoomDoors[2]\buttons[0],True), r\z + 512.0 * RoomScale, True)
+			
+			r\RoomDoors[3] = CreateDoor(r\zone, r\x - 192.0 * RoomScale, -4224.0 * RoomScale, r\z - 288 * RoomScale, 0, r, False, False, 3)
+			r\RoomDoors[4] = CreateDoor(r\zone, r\x + 736.0 * RoomScale, -3840.0 * RoomScale, r\z - 1152 * RoomScale, 90, r)
+			
+			it = CreateItem("Document SCP-018", "paper", r\x - 560.0 * RoomScale, r\y - 4096.0 * RoomScale, r\z + 624.0 * RoomScale)
+			RotateEntity it\collider, 0, r\angle+190, 0
+			EntityParent(it\collider, r\obj)
+			;[End Block]
 		Case "tunnel2"
 			;[Block]
 			r\Objects[0] = CreatePivot(r\obj)
@@ -4653,79 +4806,7 @@ Function FillRoom(r.Rooms)
 			;[End Block]
 		Case "room1archive"
 			;[Block]
-			For xtemp = 0 To 1
-				For ytemp = 0 To 2
-					For ztemp = 0 To 2
-						
-						tempstr$ = "9V Battery" : tempstr2$ = "bat"
-						chance% = Rand(-10,100)
-						Select True
-							Case (chance<0)
-								Exit
-							Case (chance<40) ;40% chance for a document
-								tempstr="Document SCP-"
-								Select Rand(1,6)
-									Case 1
-										tempstr=tempstr+"1123"
-									Case 2
-										tempstr=tempstr+"1048"
-									Case 3
-										tempstr=tempstr+"939"
-									Case 4
-										tempstr=tempstr+"682"
-									Case 5
-										tempstr=tempstr+"079"
-									Case 6
-										tempstr=tempstr+"096"
-									Case 6
-										tempstr=tempstr+"966"
-								End Select
-								tempstr2="paper"
-							Case (chance>=40) And (chance<45) ;5% chance for a key card
-								temp3%=Rand(1,2)
-								tempstr="Level "+Str(temp3)+" Key Card"
-								tempstr2="key"+Str(temp3)
-							Case (chance>=45) And (chance<50) ;5% chance for a medkit
-								tempstr="First Aid Kit"
-								tempstr2="firstaid"
-							Case (chance>=50) And (chance<60) ;10% chance for a battery
-								tempstr="9V Battery"
-								tempstr2="bat"
-							Case (chance>=60) And (chance<70) ;10% chance for an SNAV
-								tempstr="S-NAV 300 Navigator"
-								tempstr2="nav"
-							Case (chance>=70) And (chance<85) ;15% chance for a radio
-								tempstr="Radio Transceiver"
-								tempstr2="radio"
-							Case (chance>=85) And (chance<95) ;10% chance for a clipboard
-								tempstr="Clipboard"
-								tempstr2="clipboard"
-							Case (chance>=95) And (chance=<100) ;5% chance for misc
-								temp3%=Rand(1,3)
-								Select temp3
-									Case 1 ;playing card
-										tempstr="Playing Card"
-									Case 2 ;Mastercard
-										tempstr="Mastercard"
-									Case 3 ;origami
-										tempstr="Origami"
-								End Select
-								tempstr2="misc"
-						End Select
-						
-						x# = (-672.0 + 864.0 * xtemp)* RoomScale
-						y# = (96.0  + 96.0 * ytemp) * RoomScale
-						z# = (480.0 - 352.0*ztemp + Rnd(-96.0,96.0)) * RoomScale
-						
-						it = CreateItem(tempstr,tempstr2,r\x+x,y,r\z+z)
-						EntityParent it\collider,r\obj							
-					Next
-				Next
-			Next
-			
-			r\RoomDoors[0] = CreateDoor(r\zone,r\x,r\y,r\z - 528.0 * RoomScale,0,r,False,False,6)
-			
-			sc.SecurityCams = CreateSecurityCam(r\x-256.0*RoomScale, r\y+384.0*RoomScale, r\z+640.0*RoomScale, r)
+			sc.SecurityCams = CreateSecurityCam(r\x, r\y+384.0*RoomScale, r\z+640.0*RoomScale, r)
 			sc\angle = 180
 			sc\turn = 45
 			TurnEntity(sc\CameraObj, 20, 0, 0)
@@ -5515,6 +5596,38 @@ Function FillRoom(r.Rooms)
 		EndIf
 	Next
 	
+	newdoor% = 0
+	For td.TempDoors = Each TempDoors
+		If td\roomtemplate = r\RoomTemplate Then
+			If td\id=-1 Then
+				While r\RoomDoors[newdoor]<>Null
+					newdoor = newdoor + 1
+				Wend
+				r\RoomDoors[newdoor] = CreateDoor(r\zone, r\x+td\x, r\y+td\y, r\z+td\z, td\angle, r, td\open, td\big, td\level, td\code)
+				r\RoomDoors[newdoor]\locked = td\locked
+				
+				newdoor = newdoor + 1
+			EndIf
+		EndIf
+	Next
+	
+	For ti.TempItems = Each TempItems
+		If ti\roomtemplate = r\RoomTemplate Then
+			it = CreateItem(ti\name, ti\tempname, r\x + ti\x, r\y + ti\y, r\z + ti\z)
+			RotateEntity it\collider, 0, r\angle+ti\angle, 0
+			EntityParent(it\collider, r\obj)
+		EndIf
+	Next
+	
+	For is.WeightedItemSpawner = Each WeightedItemSpawner
+		If is\rt = r\RoomTemplate Then
+			wi.WeightedItem = GetWeightedItem(is)
+			it = CreateItem(wi\name, wi\tempname, r\x + is\x, r\y + is\y, r\z + is\z)
+			RotateEntity it\collider, 0, Rand(0,360), 0
+			EntityParent(it\collider, r\obj)
+		EndIf
+	Next
+	
 	For ts.tempscreens = Each TempScreens
 		If ts\roomtemplate = r\RoomTemplate Then
 			CreateScreen(r\x+ts\x, r\y+ts\y, r\z+ts\z, ts\imgpath, r)
@@ -5811,6 +5924,53 @@ Function AddTempLight.LightTemplates(rt.RoomTemplates, x#, y#, z#, ltype%, range
 	lt\b = b
 	
 	Return lt
+End Function
+
+;-------------------------------------------------------------------------------------------------------
+
+Type TempDoors
+	Field roomtemplate.RoomTemplates
+	Field x#, y#, z#, angle#
+	Field big%, open%, locked%, level%, id%
+	Field code$
+End Type 
+
+Function AddTempDoor.TempDoors(rt.RoomTemplates, x#, y#, z#, angle#, dopen%, dlocked%, big%, keycard%, code$, id%)
+	td.TempDoors = New TempDoors
+	td\roomtemplate = rt
+	td\x = x
+	td\y = y
+	td\z = z
+	td\angle = angle
+	td\open = dopen
+	td\locked = dlocked
+	td\big = big
+	td\level = keycard
+	td\code = code
+	td\id = id
+	
+	Return td
+End Function
+
+;-------------------------------------------------------------------------------------------------------
+
+Type TempItems
+	Field roomtemplate.RoomTemplates
+	Field x#, y#, z#, angle#
+	Field name$, tempname$
+End Type 
+
+Function AddTempItem.TempItems(rt.RoomTemplates, x#, y#, z#, angle#, name$, tempname$)
+	ti.TempItems = New TempItems
+	ti\roomtemplate = rt
+	ti\x = x
+	ti\y = y
+	ti\z = z
+	ti\angle = angle
+	ti\name = name
+	ti\tempname = tempname
+	
+	Return ti
 End Function
 
 ;-------------------------------------------------------------------------------------------------------
@@ -7387,8 +7547,10 @@ Function CreateMap()
 	SetRoom("room2sl", ROOM2, Floor(0.5*Float(Room2Amount[0])),min_pos,max_pos)
 	SetRoom("room012", ROOM2, Floor(0.55*Float(Room2Amount[0])),min_pos,max_pos)
 	SetRoom("room2scps2",ROOM2,Floor(0.6*Float(Room2Amount[0])),min_pos,max_pos)
+	SetRoom("room018", ROOM2, Floor(0.65*Float(Room2Amount[0])),min_pos,max_pos)
 	SetRoom("room1123",ROOM2,Floor(0.7*Float(Room2Amount[0])),min_pos,max_pos)
 	SetRoom("room2elevator",ROOM2,Floor(0.85*Float(Room2Amount[0])),min_pos,max_pos)
+	
 	
 	
 	MapRoom(ROOM3, Floor(Rnd(0.2,0.8)*Float(Room3Amount[0]))) = "room3storage"

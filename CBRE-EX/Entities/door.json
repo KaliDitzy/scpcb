@@ -1,0 +1,57 @@
+{
+  "Name": "door",
+  "Description": "Self explanatory.",
+  "Sprite": "sprites/door",
+  "UseModelRendering": false,
+  "Properties": [
+    {
+      "Name": "angle",
+      "Type": "Float",
+      "SmartEditName": "Angle",
+      "DefaultValue": "0",
+      "HelpText": "Yaw of the door."
+    },
+	{
+      "Name": "type",
+      "Type": "Integer",
+      "SmartEditName": "Type",
+      "DefaultValue": "0",
+      "HelpText": "The type of door.\nKnown internally as 'big'\r\n0 = LCZ/ECZ door\n1 = large blast door\n2 = HCZ door\n3 = elevator door"
+    },
+	{
+      "Name": "open",
+      "Type": "Integer",
+      "SmartEditName": "Open",
+      "DefaultValue": "0",
+      "HelpText": "Whether or not the door is open. (0/1)"
+    },
+	{
+      "Name": "locked",
+      "Type": "Integer",
+      "SmartEditName": "Locked",
+      "DefaultValue": "0",
+      "HelpText": "Whether or not the door is locked. (0/1)"
+    },
+	{
+      "Name": "level",
+      "Type": "Integer",
+      "SmartEditName": "Keycard Level",
+      "DefaultValue": "0",
+      "HelpText": "Keycard level.\nLeave 0 for none."
+    },
+	{
+      "Name": "code",
+      "Type": "String",
+      "SmartEditName": "Keypad Code",
+      "DefaultValue": "",
+      "HelpText": "Keypad code.\nLeave blank for none."
+    },
+	{
+      "Name": "did",
+      "Type": "Integer",
+      "SmartEditName": "Door ID",
+      "DefaultValue": "-1",
+      "HelpText": "Used by developers so that it can be controlled internally.\nLeave -1 to not assign a unique ID."
+    }
+  ]
+}

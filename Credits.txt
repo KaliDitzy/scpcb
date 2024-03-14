@@ -9,6 +9,7 @@
 		Ryan Stillings ("Risingstar64")
 		Sam Lynch ("InnocentSam")
 		Shaun Gaylard ("ENDSHN")
+		Kali Sightler ("KaliDizy")
 
 
 *3D Modellers
@@ -80,6 +81,7 @@
 		Shadowscale48
 		Shaun Gaylard ("ENDSHN")
 		Vladislav Borisevich ("Vane Brain")
+		Kali Sightler ("KaliDitzy")
 
 
 *Writers
@@ -128,6 +130,9 @@ by "Lee Byron"
 
 		SCP-012 is based on "SCP-012 - A Bad Composition",
 author unknown
+		
+		SCP-018 is based on "SCP-018 - Super Ball",
+by "Epic Phail Spy"
 
 		SCP-035 is based on "SCP-035 - Possessive Mask",
 by "Kain Pathos Crow"
@@ -230,3 +235,13 @@ by "Skara Brae"
 	me a message on the Undertow Games forum or contact@undertowgames.com!
 	
 	- Joonas Rikkonen ("Regalis")
+
+/
+	Hopefully this continuation of Regalis' beloved SCP - Containment Breach
+	meets the expectations of a fully fledged update.
+	
+	While many other attempts at continuing the game's legacy have been made,
+	please contact me via Discord if you wish to help participate in this
+	community continuation of this legendary game! My handle is 'kaliditzy'.
+	
+	- Kali Sightler ("KaliDitzy")

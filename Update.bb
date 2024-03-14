@@ -585,7 +585,8 @@ Function CheckForUpdates()
 	Text 320,240,"Checking for updates...",True,True
 	Flip
 	
-	Local updateCheck% = OpenRemoteFile("http://www.scpcbgame.com/changelog.txt")
+	;Local updateCheck% = OpenRemoteFile("http://www.scpcbgame.com/changelog.txt")
+	Local updateCheck% = OpenRemoteFile("https://kalcite.neocities.org/scpcb/changelog.txt")
 	
 	If updateCheck=0 Then Return ;remote file couldn't be opened
 	
@@ -614,15 +615,15 @@ Function CheckForUpdates()
 	Local DownloadURL$ = ""
 	
 	If latest<>VersionNumber And latest<>"" Then ;a new version is available!
-		updateCheck% = OpenRemoteFile("http://www.scpcbgame.com/index.html")
+		updateCheck% = OpenRemoteFile("https://kalcite.neocities.org/scpcb/index.html")
 		
 		If updateCheck=0 Then Return ;remote file couldn't be opened
 		
 		DownloadURL$ = ""
 		rl$ = ReadRemoteLine(updateCheck)
 		While Not EORF(updateCheck)
-			If Instr(Lower(rl),"undertowgames.com/file/scp")>0 And Instr(Lower(rl),".zip")>0 Then
-				DownloadURL = Mid(rl,Instr(Lower(rl),"http://"),Instr(Lower(rl),".zip")-Instr(Lower(rl),"http://")+4)
+			If Instr(Lower(rl),"kalcite.neocities.org/scpcb")>0 And Instr(Lower(rl),".zip")>0 Then
+				DownloadURL = Mid(rl,Instr(Lower(rl),"https://"),Instr(Lower(rl),".zip")-Instr(Lower(rl),"https://")+4)
 				DebugLog DownloadURL
 				Exit
 			Else
@@ -635,7 +636,7 @@ Function CheckForUpdates()
 		UpdaterBG = LoadImage_Strict("GFX\menu\updater.jpg")
 		UpdaterIMG = CreateImage(452,254)
 		
-		Local ChangeLogURL$ = "http://www.scpcbgame.com/changelog.txt"
+		Local ChangeLogURL$ = "https://kalcite.neocities.org/scpcb/changelog.txt"
 		Download(ChangeLogURL$,"","Changelog_Prev.txt",latest)
 		Local ChangeLogFile = OpenFile("Changelog_Prev.txt")
 		Local ChangeLogLineAmount% = 0
@@ -712,7 +713,7 @@ Function CheckForUpdates()
 					Return
 				EndIf
 				If DrawButton(LauncherWidth - 55 - 90, LauncherHeight - 50 - 55, 145, 30, "VISIT WEBSITE", False, False, False)
-					ExecFile("http://scpcbgame.com")
+					ExecFile("https://kalcite.neocities.org/scpcb/index.html")
 					
 					Delay 100
 					End
