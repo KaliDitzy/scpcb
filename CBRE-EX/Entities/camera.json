@@ -1,0 +1,29 @@
+{
+  "Name": "camera",
+  "Description": "CCTV Camera.",
+  "Sprite": "sprites/camera",
+  "UseModelRendering": false,
+  "Properties": [
+	{
+      "Name": "angle",
+      "Type": "Float",
+      "SmartEditName": "Angle",
+      "DefaultValue": "0",
+      "HelpText": "Yaw of the camera."
+    },
+	{
+      "Name": "range",
+      "Type": "Float",
+      "SmartEditName": "Range",
+      "DefaultValue": "45",
+      "HelpText": "Range of the camera (for panning)."
+    },
+	{
+      "Name": "pitch",
+      "Type": "Float",
+      "SmartEditName": "Pitch",
+      "DefaultValue": "20",
+      "HelpText": "Pitch of the camera."
+    },
+  ]
+}

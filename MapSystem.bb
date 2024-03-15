@@ -132,6 +132,18 @@ Function LoadWorld(file$, rt.RoomTemplates)
 			;===============================================================================
 			;Solid Entities
 			;===============================================================================
+			Case "camera"
+			
+				x# = EntityX(node)*RoomScale
+				y# = EntityY(node)*RoomScale
+				z# = EntityZ(node)*RoomScale	
+				
+				angle# = Float(KeyValue(node,"angle","0"))
+				range# = Float(KeyValue(node,"range","0"))
+				pitch# = Float(KeyValue(node,"pitch","0"))
+
+				AddTempCamera(rt, x,y,z, angle,range,pitch)
+				
 			Case "item"
 			
 				x# = EntityX(node)*RoomScale
@@ -660,6 +672,18 @@ Function LoadRMesh(file$,rt.RoomTemplates)
 			;===============================================================================
 			;Other Entities
 			;===============================================================================
+			Case "camera"
+			
+				temp1 = ReadFloat(f)*RoomScale
+				temp2 = ReadFloat(f)*RoomScale
+				temp3 = ReadFloat(f)*RoomScale	
+				
+				angle# = ReadFloat(f)
+				range# = ReadFloat(f)
+				pitch# = ReadFloat(f)
+
+				AddTempCamera(rt, temp1,temp2,temp3, angle,range,pitch)
+				
 			Case "item"
 			
 				temp1 = ReadFloat(f)*RoomScale
@@ -5618,6 +5642,15 @@ Function FillRoom(r.Rooms)
 			EntityParent(it\collider, r\obj)
 		EndIf
 	Next
+			
+	For tc.TempCameras = Each TempCameras
+		If tc\roomtemplate = r\RoomTemplate Then
+			sc.SecurityCams = CreateSecurityCam(r\x+tc\x, r\y+tc\y, r\z+tc\z, r)
+			sc\angle = tc\angle
+			sc\turn = tc\range
+			TurnEntity(sc\CameraObj, tc\pitch, 0, 0)
+		EndIf
+	Next
 	
 	For is.WeightedItemSpawner = Each WeightedItemSpawner
 		If is\rt = r\RoomTemplate Then
@@ -5971,6 +6004,26 @@ Function AddTempItem.TempItems(rt.RoomTemplates, x#, y#, z#, angle#, name$, temp
 	ti\tempname = tempname
 	
 	Return ti
+End Function
+
+;-------------------------------------------------------------------------------------------------------
+
+Type TempCameras
+	Field roomtemplate.RoomTemplates
+	Field x#, y#, z#, angle#, range#, pitch#
+End Type 
+
+Function AddTempCamera.TempCameras(rt.RoomTemplates, x#, y#, z#, angle#, range#, pitch#)
+	tc.TempCameras = New TempCameras
+	tc\roomtemplate = rt
+	tc\x = x
+	tc\y = y
+	tc\z = z
+	tc\angle = angle
+	tc\range = range
+	tc\pitch = pitch
+	
+	Return tc
 End Function
 
 ;-------------------------------------------------------------------------------------------------------
