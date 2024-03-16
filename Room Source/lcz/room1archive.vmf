@@ -24319,6 +24319,8 @@ entity
     "code" ""
     "did" "1"
     "position" "0 0 -480"
+    "button0" "0 0 0"
+    "button1" "0 0 0"
     "spawnflags" "0"
     "origin" "0.00000000 -480.00000000 0.00000000"
     editor
@@ -24341,6 +24343,8 @@ entity
     "code" ""
     "did" "2"
     "position" "512 0 -480"
+    "button0" "0 0 0"
+    "button1" "0 0 0"
     "spawnflags" "0"
     "origin" "512.00000000 -480.00000000 0.00000000"
     editor
@@ -24363,6 +24367,8 @@ entity
     "code" "ABCD"
     "did" "-1"
     "position" "-992 0 -704"
+    "button0" "0 0 0"
+    "button1" "0 0 0"
     "spawnflags" "0"
     "origin" "-992.00000000 -704.00000000 0.00000000"
     editor
@@ -24385,6 +24391,8 @@ entity
     "code" ""
     "did" "0"
     "position" "-512 0 -480"
+    "button0" "0 0 0"
+    "button1" "0 0 0"
     "spawnflags" "0"
     "origin" "-512.00000000 -480.00000000 0.00000000"
     editor
@@ -24400,8 +24408,8 @@ cameras
     "activecamera" "0"
     camera
     {
-        "position" "[46.61043000 642.45430000 299.41080000]"
-        "look" "[-12.23170000 574.76170000 265.18660000]"
+        "position" "[563.15250000 -614.94100000 205.79830000]"
+        "look" "[535.70080000 -531.68340000 166.67590000]"
     }
 }
 cordon

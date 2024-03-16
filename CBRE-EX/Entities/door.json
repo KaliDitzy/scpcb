@@ -4,6 +4,20 @@
   "Sprite": "sprites/door",
   "UseModelRendering": false,
   "Properties": [
+	{
+      "Name": "button0",
+      "Type": "String",
+      "SmartEditName": "Button 0 Position",
+      "DefaultValue": "0 0 0",
+      "HelpText": "Leave at '0 0 0' to use default."
+    },
+	{
+      "Name": "button1",
+      "Type": "String",
+      "SmartEditName": "Button 1 Position",
+      "DefaultValue": "0 0 0",
+      "HelpText": "Leave at '0 0 0' to use default."
+    },
     {
       "Name": "angle",
       "Type": "Float",

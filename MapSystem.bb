@@ -1,5 +1,3 @@
-
-
 Type Materials
 	Field name$
 	Field Diff
@@ -163,6 +161,17 @@ Function LoadWorld(file$, rt.RoomTemplates)
 				y# = EntityY(node)*RoomScale
 				z# = EntityZ(node)*RoomScale
 				
+				button0$ = KeyValue(node,"button0","0 0 0")
+				button1$ = KeyValue(node,"button1","0 0 0")
+				
+				b0x# = GetVectorX(button0)
+				b0y# = GetVectorY(button0)
+				b0z# = GetVectorZ(button0)
+				
+				b1x# = GetVectorX(button1)
+				b1y# = GetVectorY(button1)
+				b1z# = GetVectorZ(button1)
+				
 				angle# = Float(KeyValue(node,"angle","0"))
 				big% = Int(KeyValue(node,"type","0"))
 				
@@ -174,7 +183,7 @@ Function LoadWorld(file$, rt.RoomTemplates)
 				
 				id% = Int(KeyValue(node,"did","-1"))
 				
-				AddTempDoor(rt, x,y,z, angle, open,locked, big, level, code, id)
+				AddTempDoor(rt, x,y,z, b0x,b0y,b0z, b1x,b1y,b1z, angle, open,locked, big, level, code, id)
 			
 			Case "screen"
 				
@@ -703,6 +712,17 @@ Function LoadRMesh(file$,rt.RoomTemplates)
 				temp2 = ReadFloat(f)*RoomScale
 				temp3 = ReadFloat(f)*RoomScale
 				
+				button0$ = ReadString(f)
+				button1$ = ReadString(f)
+				
+				b0x# = GetVectorX(button0)
+				b0y# = GetVectorY(button0)
+				b0z# = GetVectorZ(button0)
+				
+				b1x# = GetVectorX(button1)
+				b1y# = GetVectorY(button1)
+				b1z# = GetVectorZ(button1)
+				
 				angle# = ReadFloat(f)
 				big% = ReadInt(f)
 				open% = ReadInt(f)
@@ -713,7 +733,7 @@ Function LoadRMesh(file$,rt.RoomTemplates)
 				
 				id% = ReadInt(f)
 				
-				AddTempDoor(rt, temp1,temp2,temp3, angle, open,locked, big, level, code, id)
+				AddTempDoor(rt, temp1,temp2,temp3, b0x,b0y,b0z, b1x,b1y,b1z, angle, open,locked, big, level, code, id)
 				
 			Case "screen"
 				
@@ -2252,6 +2272,13 @@ Function FillRoom(r.Rooms)
 			If td\id<>-1 Then
 				r\RoomDoors[td\id] = CreateDoor(r\zone, r\x+td\x, r\y+td\y, r\z+td\z, td\angle, r, td\open, td\big, td\level, td\code)
 				r\RoomDoors[td\id]\locked = td\locked
+				
+				If td\b0x<>0 Or td\b0y<>0 Or td\b0z<>0
+					PositionEntity(r\RoomDoors[td\id]\buttons[0], r\x + td\b0x,r\y + td\b0y,r\z + td\b0z)
+				EndIf
+				If td\b1x<>0 Or td\b1y<>0 Or td\b1z<>0
+					PositionEntity(r\RoomDoors[td\id]\buttons[1], r\x + td\b1x,r\y + td\b1y,r\z + td\b1z)
+				EndIf
 			EndIf
 		EndIf
 	Next
@@ -5630,6 +5657,13 @@ Function FillRoom(r.Rooms)
 				r\RoomDoors[newdoor] = CreateDoor(r\zone, r\x+td\x, r\y+td\y, r\z+td\z, td\angle, r, td\open, td\big, td\level, td\code)
 				r\RoomDoors[newdoor]\locked = td\locked
 				
+				If td\b0x<>0 Or td\b0y<>0 Or td\b0z<>0
+					PositionEntity(r\RoomDoors[newdoor]\buttons[0], r\x + td\b0x,r\y + td\b0y,r\z + td\b0z)
+				EndIf
+				If td\b1x<>0 Or td\b1y<>0 Or td\b1z<>0
+					PositionEntity(r\RoomDoors[newdoor]\buttons[1], r\x + td\b1x,r\y + td\b1y,r\z + td\b1z)
+				EndIf
+				
 				newdoor = newdoor + 1
 			EndIf
 		EndIf
@@ -5963,17 +5997,23 @@ End Function
 
 Type TempDoors
 	Field roomtemplate.RoomTemplates
-	Field x#, y#, z#, angle#
+	Field x#,y#,z#, b0x#,b0y#,b0z#, b1x#,b1y#,b1z#, angle#
 	Field big%, open%, locked%, level%, id%
 	Field code$
 End Type 
 
-Function AddTempDoor.TempDoors(rt.RoomTemplates, x#, y#, z#, angle#, dopen%, dlocked%, big%, keycard%, code$, id%)
+Function AddTempDoor.TempDoors(rt.RoomTemplates, x#,y#,z#, b0x#,b0y#,b0z#, b1x#,b1y#,b1z#, angle#, dopen%, dlocked%, big%, keycard%, code$, id%)
 	td.TempDoors = New TempDoors
 	td\roomtemplate = rt
 	td\x = x
 	td\y = y
 	td\z = z
+	td\b0x = b0x
+	td\b0y = b0y
+	td\b0z = b0z
+	td\b1x = b1x
+	td\b1y = b1y
+	td\b1z = b1z
 	td\angle = angle
 	td\open = dopen
 	td\locked = dlocked
