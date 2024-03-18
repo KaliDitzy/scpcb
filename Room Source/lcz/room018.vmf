@@ -33,7 +33,7 @@ viewsettings
     "bSnapToGrid" "1"
     "bShowGrid" "1"
     "bShow3DGrid" "0"
-    "nGridSpacing" "64"
+    "nGridSpacing" "16"
     "bIgnoreGrouping" "1"
     "bHideFaceMask" "0"
     "bHideToolTextures" "0"
@@ -57280,13 +57280,121 @@ entity
         "parentid" "2"
     }
 }
+entity
+{
+    "id" "567"
+    "classname" "door"
+    "button0" "-64 -4048 512"
+    "button1" "-320 -4048 576"
+    "angle" "0"
+    "type" "0"
+    "open" "0"
+    "locked" "0"
+    "level" "2"
+    "code" ""
+    "did" "-1"
+    "position" "-192 -4224 544"
+    "spawnflags" "0"
+    "origin" "-192.00000000 544.00000000 -4224.00000000"
+    editor
+    {
+        "color" "255 0 255"
+        "visgroupshown" "1"
+        "visgroupautoshown" "1"
+        "parentid" "2"
+    }
+}
+entity
+{
+    "id" "570"
+    "classname" "door"
+    "button0" "0 0 0"
+    "button1" "0 0 0"
+    "angle" "0"
+    "type" "0"
+    "open" "0"
+    "locked" "0"
+    "level" "3"
+    "code" ""
+    "did" "-1"
+    "position" "-192 -4224 -288"
+    "spawnflags" "0"
+    "origin" "-192.00000000 -288.00000000 -4224.00000000"
+    editor
+    {
+        "color" "255 0 255"
+        "visgroupshown" "1"
+        "visgroupautoshown" "1"
+        "parentid" "2"
+    }
+}
+entity
+{
+    "id" "571"
+    "classname" "door"
+    "button0" "0 0 0"
+    "button1" "0 0 0"
+    "angle" "90"
+    "type" "0"
+    "open" "0"
+    "locked" "0"
+    "level" "0"
+    "code" ""
+    "did" "-1"
+    "position" "736 -3840 -1152"
+    "spawnflags" "0"
+    "origin" "736.00000000 -1152.00000000 -3840.00000000"
+    editor
+    {
+        "color" "255 0 255"
+        "visgroupshown" "1"
+        "visgroupautoshown" "1"
+        "parentid" "2"
+    }
+}
+entity
+{
+    "id" "572"
+    "classname" "item"
+    "name" "Document SCP-018"
+    "tempname" "paper"
+    "angle" "190"
+    "position" "-560 -4080 624"
+    "spawnflags" "0"
+    "origin" "-560.00000000 624.00000000 -4080.00000000"
+    editor
+    {
+        "color" "255 0 255"
+        "visgroupshown" "1"
+        "visgroupautoshown" "1"
+        "parentid" "2"
+    }
+}
+entity
+{
+    "id" "573"
+    "classname" "camera"
+    "angle" "-135"
+    "range" "22.5"
+    "pitch" "35"
+    "position" "512 -3456 640"
+    "spawnflags" "0"
+    "origin" "512.00000000 640.00000000 -3456.00000000"
+    editor
+    {
+        "color" "255 0 255"
+        "visgroupshown" "1"
+        "visgroupautoshown" "1"
+        "parentid" "2"
+    }
+}
 cameras
 {
     "activecamera" "0"
     camera
     {
-        "position" "[1321.68900000 -184.64780000 -3539.94300000]"
-        "look" "[1240.80500000 -180.46270000 -3591.48300000]"
+        "position" "[-76.35713000 -96.20161000 -4043.98500000]"
+        "look" "[-45.70408000 -180.28510000 -4078.71900000]"
     }
 }
 cordon

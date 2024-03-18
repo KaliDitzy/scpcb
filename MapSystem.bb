@@ -164,13 +164,13 @@ Function LoadWorld(file$, rt.RoomTemplates)
 				button0$ = KeyValue(node,"button0","0 0 0")
 				button1$ = KeyValue(node,"button1","0 0 0")
 				
-				b0x# = Piece(button0,1)
-				b0y# = Piece(button0,2)
-				b0z# = Piece(button0,3)
+				b0x# = Float(Piece(button0,1))*RoomScale
+				b0y# = Float(Piece(button0,2))*RoomScale
+				b0z# = Float(Piece(button0,3))*RoomScale
 				
-				b1x# = Piece(button1,1)
-				b1y# = Piece(button1,2)
-				b1z# = Piece(button1,3)
+				b1x# = Float(Piece(button1,1))*RoomScale
+				b1y# = Float(Piece(button1,2))*RoomScale
+				b1z# = Float(Piece(button1,3))*RoomScale
 				
 				angle# = Float(KeyValue(node,"angle","0"))
 				big% = Int(KeyValue(node,"type","0"))
@@ -715,13 +715,13 @@ Function LoadRMesh(file$,rt.RoomTemplates)
 				button0$ = ReadString(f)
 				button1$ = ReadString(f)
 				
-				b0x# = Piece(button0,1)
-				b0y# = Piece(button0,2)
-				b0z# = Piece(button0,3)
+				b0x# = Float(Piece(button0,1))*RoomScale
+				b0y# = Float(Piece(button0,2))*RoomScale
+				b0z# = Float(Piece(button0,3))*RoomScale
 				
-				b1x# = Piece(button1,1)
-				b1y# = Piece(button1,2)
-				b1z# = Piece(button1,3)
+				b1x# = Float(Piece(button1,1))*RoomScale
+				b1y# = Float(Piece(button1,2))*RoomScale
+				b1z# = Float(Piece(button1,3))*RoomScale
 				
 				angle# = ReadFloat(f)
 				big% = ReadInt(f)
@@ -2276,10 +2276,14 @@ Function FillRoom(r.Rooms)
 				r\RoomDoors[td\id]\locked = td\locked
 				
 				If td\b0x<>0 Or td\b0y<>0 Or td\b0z<>0
+					EntityParent(r\RoomDoors[newdoor]\buttons[0], 0)
 					PositionEntity(r\RoomDoors[td\id]\buttons[0], r\x + td\b0x,r\y + td\b0y,r\z + td\b0z)
+					EntityParent(r\RoomDoors[newdoor]\buttons[0], r\obj)
 				EndIf
 				If td\b1x<>0 Or td\b1y<>0 Or td\b1z<>0
+					EntityParent(r\RoomDoors[newdoor]\buttons[1], 0)
 					PositionEntity(r\RoomDoors[td\id]\buttons[1], r\x + td\b1x,r\y + td\b1y,r\z + td\b1z)
+					EntityParent(r\RoomDoors[newdoor]\buttons[1], r\obj)
 				EndIf
 			EndIf
 		EndIf
@@ -3819,15 +3823,15 @@ Function FillRoom(r.Rooms)
 			;PositionEntity(r\RoomDoors[1]\buttons[1], r\x - 384.0 * RoomScale, EntityY(r\RoomDoors[1]\buttons[1],True), r\z + 144.0 * RoomScale, True)
 			;PositionEntity(r\RoomDoors[1]\buttons[0], r\x - 448.0 * RoomScale, EntityY(r\RoomDoors[1]\buttons[0],True), r\z - 144.0 * RoomScale, True)
 			
-			r\RoomDoors[2] = CreateDoor(r\zone, r\x - 192.0 * RoomScale, -4224.0 * RoomScale, r\z + 544 * RoomScale, 0, r, False, False, 2)
-			PositionEntity(r\RoomDoors[2]\buttons[0], r\x - 64.0 * RoomScale, EntityY(r\RoomDoors[2]\buttons[0],True), r\z + 512.0 * RoomScale, True)
+			;r\RoomDoors[2] = CreateDoor(r\zone, r\x - 192.0 * RoomScale, -4224.0 * RoomScale, r\z + 544 * RoomScale, 0, r, False, False, 2)
+			;PositionEntity(r\RoomDoors[2]\buttons[0], r\x - 64.0 * RoomScale, EntityY(r\RoomDoors[2]\buttons[0],True), r\z + 512.0 * RoomScale, True)
 			
-			r\RoomDoors[3] = CreateDoor(r\zone, r\x - 192.0 * RoomScale, -4224.0 * RoomScale, r\z - 288 * RoomScale, 0, r, False, False, 3)
-			r\RoomDoors[4] = CreateDoor(r\zone, r\x + 736.0 * RoomScale, -3840.0 * RoomScale, r\z - 1152 * RoomScale, 90, r)
+			;r\RoomDoors[3] = CreateDoor(r\zone, r\x - 192.0 * RoomScale, -4224.0 * RoomScale, r\z - 288 * RoomScale, 0, r, False, False, 3)
+			;r\RoomDoors[4] = CreateDoor(r\zone, r\x + 736.0 * RoomScale, -3840.0 * RoomScale, r\z - 1152 * RoomScale, 90, r)
 			
-			it = CreateItem("Document SCP-018", "paper", r\x - 560.0 * RoomScale, r\y - 4096.0 * RoomScale, r\z + 624.0 * RoomScale)
-			RotateEntity it\collider, 0, r\angle+190, 0
-			EntityParent(it\collider, r\obj)
+			;it = CreateItem("Document SCP-018", "paper", r\x - 560.0 * RoomScale, r\y - 4096.0 * RoomScale, r\z + 624.0 * RoomScale)
+			;RotateEntity it\collider, 0, r\angle+190, 0
+			;EntityParent(it\collider, r\obj)
 			;[End Block]
 		Case "tunnel2"
 			;[Block]
@@ -5660,10 +5664,14 @@ Function FillRoom(r.Rooms)
 				r\RoomDoors[newdoor]\locked = td\locked
 				
 				If td\b0x<>0 Or td\b0y<>0 Or td\b0z<>0
+					EntityParent(r\RoomDoors[newdoor]\buttons[0], 0)
 					PositionEntity(r\RoomDoors[newdoor]\buttons[0], r\x + td\b0x,r\y + td\b0y,r\z + td\b0z)
+					EntityParent(r\RoomDoors[newdoor]\buttons[0], r\obj)
 				EndIf
 				If td\b1x<>0 Or td\b1y<>0 Or td\b1z<>0
+					EntityParent(r\RoomDoors[newdoor]\buttons[1], 0)
 					PositionEntity(r\RoomDoors[newdoor]\buttons[1], r\x + td\b1x,r\y + td\b1y,r\z + td\b1z)
+					EntityParent(r\RoomDoors[newdoor]\buttons[1], r\obj)
 				EndIf
 				
 				newdoor = newdoor + 1
