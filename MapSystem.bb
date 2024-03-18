@@ -164,13 +164,13 @@ Function LoadWorld(file$, rt.RoomTemplates)
 				button0$ = KeyValue(node,"button0","0 0 0")
 				button1$ = KeyValue(node,"button1","0 0 0")
 				
-				b0x# = GetVectorX(button0)
-				b0y# = GetVectorY(button0)
-				b0z# = GetVectorZ(button0)
+				b0x# = Piece(button0,1)
+				b0y# = Piece(button0,2)
+				b0z# = Piece(button0,3)
 				
-				b1x# = GetVectorX(button1)
-				b1y# = GetVectorY(button1)
-				b1z# = GetVectorZ(button1)
+				b1x# = Piece(button1,1)
+				b1y# = Piece(button1,2)
+				b1z# = Piece(button1,3)
 				
 				angle# = Float(KeyValue(node,"angle","0"))
 				big% = Int(KeyValue(node,"type","0"))
@@ -715,13 +715,13 @@ Function LoadRMesh(file$,rt.RoomTemplates)
 				button0$ = ReadString(f)
 				button1$ = ReadString(f)
 				
-				b0x# = GetVectorX(button0)
-				b0y# = GetVectorY(button0)
-				b0z# = GetVectorZ(button0)
+				b0x# = Piece(button0,1)
+				b0y# = Piece(button0,2)
+				b0z# = Piece(button0,3)
 				
-				b1x# = GetVectorX(button1)
-				b1y# = GetVectorY(button1)
-				b1z# = GetVectorZ(button1)
+				b1x# = Piece(button1,1)
+				b1y# = Piece(button1,2)
+				b1z# = Piece(button1,3)
 				
 				angle# = ReadFloat(f)
 				big% = ReadInt(f)
@@ -931,6 +931,8 @@ Function StripPath$(file$)
 	Return name$ 
 End Function
 
+;This splits a string using a delimiter (char$) and returns a piece by index.
+;Example: Piece("Hello World!",2," ") = "World!"
 Function Piece$(s$,entry,char$=" ")
 	While Instr(s,char+char)
 		s=Replace(s,char+char,char)

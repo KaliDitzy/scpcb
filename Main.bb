@@ -10604,17 +10604,6 @@ Function Distance#(x1#, y1#, x2#, y2#)
 	Return(Sqr(x*x + y*y))
 End Function
 
-Function GetVectorX(vector$)
-	Return Float(vector)
-End Function
-Function GetVectorY(vector$)
-	Return Float(Right(vector,Len(vector)-Instr(vector," ")))
-End Function
-Function GetVectorZ(vector$)
-	Return Float(Right(Right(vector,Len(vector)-Instr(vector," ")),Len(Right(vector,Len(vector)-Instr(vector," ")))-Instr(Right(vector,Len(vector)-Instr(vector," "))," ")))
-End Function
-
-
 Function CurveValue#(number#, old#, smooth#)
 	If FPSfactor = 0 Then Return old
 	
