@@ -19,3 +19,7 @@ Requirements:
 •	Blitz3D v1.108
 
 Beware - the source code is perhaps more horrifying than the game itself!
+
+
+Support development of this fork:
+https://ko-fi.com/kaliditzy
