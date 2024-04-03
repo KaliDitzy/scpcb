@@ -1,4 +1,6 @@
 # SCP - Containment Breach
+![CodeFactor grade](https://img.shields.io/codefactor/grade/github/kaliditzy/scpcb)
+![GitHub repo size](https://img.shields.io/github/repo-size/kaliditzy/scpcb)
 
 The game is based on the works of the SCP Foundation community (http://www.scp-wiki.net/).
 
