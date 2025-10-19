@@ -30,10 +30,10 @@ https://ko-fi.com/kaliditzy
 <details>
 <summary>Roadmap</summary>
 <h2>v1.3.12</h2>
-Various Bugfixes
-New Rooms (more variation)
-Updated Rooms (like the checkpoints and endrooms)
+- Various Bugfixes
+- New Rooms (more variation)
+- Updated Rooms (like the checkpoints and endrooms)
 <h2>v1.4.0</h2>
-Advanced accessibility for both hard of hearing and low vision people (captions, high contrast, etc)
-Improved engine (graphics, audio, etc)
+- Advanced accessibility for both hard of hearing and low vision people (captions, high contrast, etc)
+- Improved engine (graphics, audio, etc)
 </details>
