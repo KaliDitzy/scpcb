@@ -1,7 +1,6 @@
 # SCP - Containment Breach
 ![GitHub repo size](https://img.shields.io/github/repo-size/kaliditzy/scpcb)
-<details>
-<summary>Overview</summary>
+## Overview
   
 The game is based on the works of the SCP Foundation community (http://www.scp-wiki.net/).
 
@@ -26,18 +25,12 @@ Beware - the source code is perhaps more horrifying than the game itself!
 
 Support development of this fork:
 https://ko-fi.com/kaliditzy
-</details>
-<details>
-<summary>Roadmap</summary>
-<h2>v1.3.12</h2>
-<ul>
-<li>Various Bugfixes</li>
-<li>New Rooms (more variation)</li>
-<li>Updated Rooms (like the checkpoints and endrooms)</li>
-</ul>
-<h2>v1.4.0</h2>
-<ul>
-<li>Advanced accessibility for both hard of hearing and low vision people (captions, high contrast, etc)</li>
-<li>Improved engine (graphics, audio, etc)</li>
-</ul>
-</details>
+
+## Roadmap
+### v1.3.12
+- Various Bugfixes
+- New Rooms (more variation)
+- Updated Rooms (like the checkpoints and endrooms)
+### v1.4.0
+- Advanced accessibility for both hard of hearing and low vision people (captions, high contrast, etc)
+- Improved engine (graphics, audio, etc)
